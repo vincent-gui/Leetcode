@@ -7,6 +7,14 @@ class Solution(object):
         这个题全网看了很多, 只有花花把这个题讲清楚了
         https://www.youtube.com/watch?v=l2rCz7skAlk
         
+        例[3, 4, 1, 2, 8, 5, 6]
+        
+        这里需要建立一个新的DP 数组f
+        
+        这个数组里保存元素的意义先忽略不计()
+        
+        每次
+        
         
         
         """
