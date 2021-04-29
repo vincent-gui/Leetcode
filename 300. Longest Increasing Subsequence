@@ -1,0 +1,38 @@
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        04/28/2021
+        """
+        
+        f = []
+        for num in nums:
+            idx = bisect_left(f, num)
+            if idx == len(f):
+                f.append(num)
+            else:
+                f[idx] = num
+        
+        return len(f)
+        
+        
+
+
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        04/27/2021
+        """
+        if not nums:
+            return 0
+        f = [1 for _ in range(len(nums))]
+        
+        for i in range(len(nums)): #这里遍历不能倒序啊, 因为后边的结果要依赖前面的计算结果
+            for j in range(0, i):
+                if nums[j] < nums[i]:
+                    f[i] = max(f[i], f[j] + 1)
+        
+        return max(f)
