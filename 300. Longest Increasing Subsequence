@@ -4,6 +4,11 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         04/28/2021
+        这个题全网看了很多, 只有花花把这个题讲清楚了
+        https://www.youtube.com/watch?v=l2rCz7skAlk
+        
+        
+        
         """
         
         f = []
@@ -25,6 +30,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         04/27/2021
+        f[i] =以a[i]结尾的最长上升子序列的长度
+        f[j] = max{ 1, f[i] + 1| i < j and a[i] < a[j]}
+        思路: 如果a[i] 这个数比f[i-1] 对应的最后一位数大, 那么f[i] = f[i - 1] + 1
+        
+        计算顺序就是i 从小到大, j 从小到i
+        时间O(n平方)
+        空间O(n)
         """
         if not nums:
             return 0
@@ -35,4 +47,5 @@ class Solution(object):
                 if nums[j] < nums[i]:
                     f[i] = max(f[i], f[j] + 1)
         
-        return max(f)
+        return max(f)# 因为并不知道起始点和终止点, 所以只能返回整个数组最大的值
+        
