@@ -106,9 +106,9 @@ class Solution(object):
             for j in range(0, i):
                 if nums[j] < nums[i]:
                     f[i] = max(f[i], f[j] + 1)
-                    if f[i] == f[j] + 1:
+                    if f[i] == f[j] + 1: #找到最大的f[i] 是从哪一个j 贡献来的 
                         pi[i] = j
-            mx = max(mx, f[i])
+            mx = max(mx, f[i]) #如果mx 小于f[i], 意味着得到了新的最大值, 这个时候p(保存最大值来源的数组最后一位的idx 需要被更新)
             if mx == f[i]:
                 p = i
                 
