@@ -83,4 +83,42 @@ class Solution(object):
                     f[i] = max(f[i], f[j] + 1)
         
         return max(f)# 因为并不知道起始点和终止点, 所以只能返回整个数组最大的值
+		
+		
+**********************
+打印路径
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        if not nums:
+            return 0
+        f = [1 for _ in range(len(nums))]
+        pi = [-1 for _ in range(len(nums))]
+        mx = p = 0
+		# p是用来track 最大的f的最后一位来源于哪个idx
+		# mx是用来保存返回值, 也就是最大有几个上升
+        
+        for i in range(len(nums)): #这里遍历不能倒序啊, 因为后边的结果要依赖前面的计算结果
+            for j in range(0, i):
+                if nums[j] < nums[i]:
+                    f[i] = max(f[i], f[j] + 1)
+                    if f[i] == f[j] + 1:
+                        pi[i] = j
+            mx = max(mx, f[i])
+            if mx == f[i]:
+                p = i
+                
+        seq = [None for _ in range(mx)]
+        for i in range(mx - 1, -1, -1):
+            seq[i] = p
+            
+            p = pi[p]
+        
+            
+    
+        return max(f)
         
