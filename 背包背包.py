@@ -27,6 +27,38 @@ f[i][w] = f[i-1][w] or f[i-1][w-A(i-1)]
 w 必须从0开始啊
 
 
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param A: Given n items with size A[i]
+    @return: The maximum size
+    """
+    def backPack(self, m, A):
+        # write your code here
+        #f[i][w] 意味着前i个物品能否拼出重量w
+        #f[i][w] = f[i-1][w] or f[i-1][w-A(i-1)] 
+
+       
+        n = len(A)
+        f = [[False for _ in range(m + 1)] for _ in range(n + 1)]
+        f[0][0] = True
+
+        for i in range(1, n + 1):
+            f[i][0] = True
+            for w in range(m + 1):
+                f[i][w] = f[i-1][w] or f[i][w]
+
+                if w >= A[i-1]: #为什么这里是j>= 是因为只需要保证j-nums[i-1] >= 0. 那么这个差那一位的结果就是f[i][j] 的部分结果
+                    f[i][w] = f[i][w] or f[i-1][w-A[i-1]]
+        
+        for i in range(m, -1, -1):
+            if f[-1][i] is True:
+                return i
+
+
+        
+
+
 ---------------------------------
 
 
@@ -74,7 +106,7 @@ class Solution:
         for i in range(1, n + 1):
             for j in range(target + 1):
                 f[i][j] = f[i - 1][j]
-                if j >= nums[i - 1]:
+                if j >= nums[i - 1]: 
                     f[i][j] += f[i-1][j - nums[i - 1]]
         
         return f[-1][-1]
@@ -84,6 +116,8 @@ class Solution:
 所以其实就用下面的方法, 内部从又往左算就行
 
 解法2
+
+		
 class Solution:
     """
     @param nums: an integer array and all positive numbers
@@ -92,15 +126,35 @@ class Solution:
     """
     def backPackV(self, nums, target):
         # write your code here
+        #f[i][j] 表示前i个物品能够拼出j 的个数
+        #f[i][j] = f[i-1][j] + f[i-1][w-A(j-1)]
+        '''
         if not nums:
             return 0
-            
-        dp = [0] * (target + 1)
+        n = len(nums)
+        f = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
+
+        f[0][0] = 1
+
+        for i in range(1, n + 1):
+            for j in range(target + 1):
+                f[i][j] += f[i-1][j]
+                if j >= nums[i - 1]:
+                    f[i][j] += f[i-1][j-nums[i-1]]
+
+        return f[-1][-1]
+        '''
+        if not nums:
+            return 0
+        n = len(nums)
         
-        dp[0] = 1
+        f = [0 for _ in range(target + 1)] #这里开的数组是根据target的大小
+        f[0] = 1 #f[0] 必须是1
+
+        for i in range(1, n + 1):
+            #for j in range(target, -1, -1):
+                #f[j] = f[j] + f[j - A[i-1]]
+            for j in range(target, nums[i-1]-1, -1):  #从又往左算, 为什么到num-1 截至, 因为f[i-1][w-A(i-1)]只能在w≥A(i-1)时使用, 注意这里需要多减一个1, 保证能够取到nums[i-1]
+                f[j] += f[j - nums[i-1]]
         
-        for num in nums:
-            for i in range(target, num - 1, -1): #从又往左算, 为什么到num-1 截至, 因为f[i-1][w-A(i-1)]只能在w≥A(i-1)时使用
-                dp[i] += dp[i - num]
-        
-        return dp[target]
+        return f[-1]
