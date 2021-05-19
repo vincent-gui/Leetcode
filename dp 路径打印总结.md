@@ -8,4 +8,7 @@ pi 里存储的就是上一个的idx(存的是从哪来的)
 
 265. Paint House II
 300. Longest Increasing Subsequence
+lint 125, 背包2
+
+所有DP  做完要总结一下路径打印
 
