@@ -1,6 +1,6 @@
 背包问题中, 数组大小和总称重有关
 
-背包1
+背包1: n个物品不同重量, 一个背包固定重量, 最多能装多少
 
 在n个物品中挑选若干物品装入背包，最多能装多满？假设背包的大小为m
 
@@ -63,7 +63,7 @@ class Solution:
 
 
 
-背包5
+背包5: N 个物品, 不同重量, 给一个背包固定重量, 问有多少种方式装满背包(每种物品可以用1次)
 
 563 · Backpack V
 
@@ -158,3 +158,68 @@ class Solution:
                 f[j] += f[j - nums[i-1]]
         
         return f[-1]
+
+377. 背包 6: (Combination Sum IV) 一个背包, n种物品, 不同重量,每种物品可以用无限次. 一个背包, 固定重量.  问有多少种方式装满背包
+
+class Solution(object):
+    def combinationSum4(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        f[i] 就是有多少种组合拼出重量i
+        f[i] = f[i-A0] + f[i-A1] + ... + f[i-A(n-1)]
+        """
+        n = len(nums)
+        f = [0 for _ in range(target + 1)]
+        f[0] = 1 #这里为什么等于1
+        for i in range(1, target + 1):
+            for num in nums:
+                if i >= num:
+                    f[i] += f[i-num]
+        
+        return f[-1]
+
+125 · 背包 2: N个物品不同重量, 不同价值, 每个物品使用一次, 一个背包固定重量, 问背包最大带走多少价值的东西  
+
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param A: Given n items with size A[i]
+    @param V: Given n items with value V[i]
+    @return: The maximum value
+    """
+    def backPackII(self, m, A, V):
+        # write your code here
+        #f[i][w] 前i各物品拼出的最大总价值
+        #f[i][w] = max(f[i-1][w], f[i-1][w - A(i-1)] + v(i-1) and w >= A(i-1) and f[i-1][w - A(i-1)] != -1)
+
+        n = len(A)
+        f = [[-1 for _ in range(m + 1)] for _ in range(n + 1)]
+        pi = [[0 for _ in range(m + 1)] for _ in range(n + 1)] #0表示不选
+
+        f[0][0] = 0
+        for i in range(1, n + 1):
+            f[i][0] = 0
+            for w in range(m + 1):
+                f[i][w] = f[i-1][w]
+                pi[i][w] = 0
+                if w >= A[i-1] and f[i-1][w - A[i-1]] != -1:
+                    f[i][w] = max(f[i][w], f[i-1][w-A[i-1]] + V[i-1])
+                    if f[i][w] == f[i-1][w-A[i-1]] + V[i-1]:
+                        pi[i][w] = 1 #为什么只有这个时候让pi[i][w] 等于1 呢, 因为只有斜线的时候才会用, 斜线表示从以前的一个重量跳过来, 尔如果是f[i][w] 从f[i-1][w]来, 那就说明前i-1 个就能够凑出最大价值, 没有必要选取第i个物品
+        
+        out = max(f[-1])
+        j = f[-1].index(out)
+        selected = [False for _ in range(n + 1)]
+
+        for i in range(n, 0, -1):
+            if pi[i][j] == 1:
+                selected[i-1] = True
+                j -= A[i-1]
+        print pi
+        print selected
+            
+        return out
+
+
