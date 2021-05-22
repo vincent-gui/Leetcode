@@ -23,7 +23,7 @@ class Solution(object):
         n = len(s)
         if n == 1:
             return 1
-        
+         
         f = [[1 for _ in range(n)] for _ in range(n)]
         
         for i in range(n - 1): #为什么要先计算length 为2 的呢, 因为f[1][2] 可能用到f[2][2], f[1][1], f[2][1], 但f[2][1] 是没有意义的, 所以需要先把length 为2 的计算出来
@@ -47,4 +47,43 @@ class Solution(object):
         return f[0][-1]
                 
                 
-            
+
+#记忆化, 记忆化就是递归, 和递推的计算顺序相同, 但是会先遇到大的
+#递归需要先写出口, 写完所有出口, 写递归表达式,这个题应该f[i][j] 不需要被反复计算, 所以才能用记忆化
+
+
+class Solution(object):
+    def longestPalindromeSubseq(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        
+        n = len(s)
+        if n == 1:
+            return n
+        
+        self.f = [[-1 for _ in range(n)] for _ in range(n)]
+        self.calc(0, n-1, s)
+        
+        return self.f[0][-1]
+    
+    def calc(self, i, j, s):
+        if self.f[i][j] != -1:
+            return 
+        if i == j:
+            self.f[i][j] = 1
+            return
+        if i + 1 == j:
+            self.f[i][j] = 2 if s[i] == s[j] else 1
+            return
+        
+        self.calc(i+1, j, s)
+        self.calc(i, j-1, s)
+        self.calc(i+1, j-1, s)
+        
+        self.f[i][j] = max(self.f[i+1][j], self.f[i][j-1])
+        if s[i] == s[j]:
+            self.f[i][j] = max(self.f[i][j], self.f[i+1][j-1] + 2)
+        
+                   
