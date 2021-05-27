@@ -31,6 +31,21 @@ for length in range(0, len(nums)):
 • 需要知道T1是否由S1变换而来的，T2是否由S2变换而来
 • 需要知道T1是否由S2变换而来的，T2是否由S1变换而来
 • S1, S2, T1, T2长度更短
+
+s  ='abcde'
+s1 = 'abc'
+s2 = 'de'
+
+t  = 'cabde' 或 t` = 'cdeab'
+t1 = 'cab'   或 t1` = 'ab'
+t2 = 'de'	 或 t2` = 'cde'
+
+这样就要求 (s1 == t1 and s2 == t2) or (s1 == t2` and s2 == t1`) 
+
+
+
+
+
 • 子问题
 • 状态：f[i][j][k][h]表示T[k..h]是否由S[i..j]变换而来
 
