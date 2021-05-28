@@ -69,11 +69,101 @@ t2 = 'de'	 或 t2` = 'cde'
 
 
 class Solution(object):
+    def isScramble(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        05/27/2021
+        """
+        memo = {}
+        return self.dfs(s1, s2, memo)
+        
+    def dfs(self, s, t, memo):
+        if (s, t) in memo:
+            return memo[(s, t)]
+        if len(s) != len(t) or set(s) != set(t):
+            memo[(s, t)] = False
+            return False
+
+        if s == t:
+            memo[(s, t)] = True
+            return True
+        for i in range(1, len(s)):
+            if (self.dfs(s[:i], t[:i], memo) and self.dfs(s[i:], t[i:], memo)) or (self.dfs(s[:i], t[-i:], memo) and self.dfs(s[i:], t[:-i], memo)):
+                memo[(s,t)] = True
+                return True
+        memo[(s, t)] = False
+        return False
+        
+
+
+class Solution(object):
     def isScramble(self, S, T):
         """
         :type s1: str
         :type s2: str
         :rtype: bool
+        05/26/2021
+        """
+        if len(S) != len(T):
+            return False
+        
+        n = len(S)
+        self.f = [[[-1] * (n+1) for _ in range(n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(n):
+                if S[i] == T[j]:
+                    self.f[i][j][1] = True
+                else:
+                    self.f[i][j][1] = False
+        
+        self.calc(0, 0, n,S, T)
+        
+        return self.f[0][0][n]
+        
+        
+        
+    def calc(self, i, j, k, S, T):
+        if self.f[i][j][k] != -1:
+            return self.f[i][j][k]
+        
+        if set(S[i:i+k]) != set(T[j:j+k]):
+            self.f[i][j][k] = False
+            return
+        
+        
+        for w in range(1, k):
+            self.calc(i, j, w, S, T)
+            self.calc(i+w, j+w, k-w, S, T)
+            if self.f[i][j][w] is True and self.f[i+w][j+w][k-w] is True:
+                
+                self.f[i][j][k] = True
+                break
+                
+            self.calc(i, j+k-w, w, S, T)
+            self.calc(i+w, j, k-w, S, T)
+            if self.f[i][j+k-w][w] is True and self.f[i+w][j][k-w] is True:
+                self.f[i][j][k] = True
+                break
+        if self.f[i][j][k] != True:
+            self.f[i][j][k] = False
+            
+            
+                
+        
+        
+        
+        
+
+class Solution(object):
+    def isScramble(self, S, T):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        05/25/2021
         f[i][j][k][h]表示T[k..h]是否由S[i..j]变换而来
         如果区间长度为length, 那么就有j-i == length == h-k
         所以可以变成f[i][j][length] == f[i][j][k] 来表示S 从i开始, T 从j 开始 长度都为k 的, 能否通过互换来得到
@@ -101,14 +191,15 @@ class Solution(object):
             for i in range(n - k + 1):
                 for j in range(n - k + 1):
                     for w in range(1, k+1):
-					
-						#不swip
                         if f[i][j][w] and f[i+w][j+w][k-w]:
                             f[i][j][k] = True
                             break
-						#swip
                         if f[i][j+k-w][w] and f[i+w][j][k-w]:
                             f[i][j][k] = True
                             break
         return f[0][0][n]
-        		
+        
+        
+        
+        
+        
