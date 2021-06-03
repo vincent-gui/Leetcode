@@ -104,7 +104,7 @@ class Solution:
         f[0][0] = 1 #前0中物品有1种方式拼出重量0
 
         for i in range(1, n + 1):
-            for j in range(target + 1):
+            for j in range(target + 1): #注意这里需要从0开始, 因为前1各物品拼出重量0 的方案也是1 
                 f[i][j] = f[i - 1][j]
                 if j >= nums[i - 1]: 
                     f[i][j] += f[i-1][j - nums[i - 1]]
@@ -221,5 +221,31 @@ class Solution:
         print selected
             
         return out
+		
+class Solution:
+    """
+    @param m: An integer m denotes the size of a backpack
+    @param A: Given n items with size A[i]
+    @param V: Given n items with value V[i]
+    @return: The maximum value
+    """
+    def backPackII(self, m, A, V):
+        # write your code here
+        if not A:
+            return 0
+            
+        dp = [[-1] * (m + 1) for _ in range(len(A) + 1)]
+        dp[0][0] = 0
+        
+        for i in range(1, len(A) + 1):
+            
+            for w in range(m + 1):
+                if w == 0:
+                    dp[i][w] = 0
+                dp[i][w] = max(dp[i][w], dp[i - 1][w])
+                if w >= A[i - 1] and dp[i - 1][w - A[i - 1]] != -1:
+                    dp[i][w] = max(dp[i][w], dp[i - 1][w - A[i - 1]] + V[i - 1])
+        
+        return max(dp[-1])
 
 
