@@ -270,3 +270,83 @@ f[i][w] = max(f[i-1][w-0*A[i-1]] + 0 * V[i-1]; f[i-1][w - 1 * A[i-1]] + 1 * V[i-
 所以当需要求f[i][w+A2] 的时候, f[i][w+A2] = max(f[i-1][w+A2], f[i][w] + V2)
 
 也就推导出 f[i][w] = max{f[i-1][w], f[i][w-A[i-1]] + v[i-1]}
+
+
+
+
+class Solution:
+    """
+    @param A: an integer array
+    @param V: an integer array
+    @param m: An integer
+    @return: an array
+    #f[i][j] 表示前i 个物品拼出重量j 能够获得的最大价值
+    #f[i][w] = max(f[i-1][w-k*A[i-1]])
+    #          ||
+    #f[i][w] = max(f[i-1][w], f[i][w-A[i-1]] + v[i-1])
+
+    """
+    def backPackIII(self, A, V, m):
+        # write your code here
+        n = len(A)
+        f = [[-1 for _ in range(m+1)] for _ in range(n+1)]  #set 成-1 表示不可拼出
+        f[0][0] = 0
+        for i in range(1, n+1):
+            f[i][0] = 0
+            for w in range(m+1):
+                f[i][w] = f[i-1][w]
+                if w >= A[i-1] and f[i][w-A[i-1]] != -1:
+                    f[i][w] = max(f[i][w], f[i][w- A[i-1]] + V[i-1])
+    
+        return max(f[-1]) #
+
+
+class Solution:
+    """
+    @param A: an integer array
+    @param V: an integer array
+    @param m: An integer
+    @return: an array
+    """
+    def backPackIII(self, A, V, m):
+        # write your code here
+
+        n = len(A)
+        f = [[-1 for _ in range(m + 1)] for _ in range(n + 1)]
+        f[0][0] = 0
+        
+        for i in range(1, n + 1):
+            f[i][0] = 0
+            for w in range(m + 1):
+                f[i][w] = f[i-1][w]
+                if w >= A[i-1] :
+                    f[i][w] = max(f[i][w-A[i-1]] + V[i-1], f[i][w])
+
+        
+        return max(f[-1])
+
+
+
+
+
+
+    def backPackIII(self, A, V, m):
+        # write your code here
+        # f[i][w] 就是前i个物品拼出重量w 能获得的最大价值
+        # f[i][w] = max(f[i-1][w-k*A[i-1]] + k*V[i-1])  其中k 从0 开始到k*A[i-1] > w
+
+        n = len(A)
+        f = [[-1 for _ in range(m + 1)] for _ in range(n + 1)]
+        f[0][0] = 0
+        
+        for i in range(1, n + 1):
+            f[i][0] = 0
+            for w in range(m + 1):
+                k = 0
+                while k * A[i-1] <= w:
+                    if f[i-1][w- k * A[i-1]] != -1:
+                        f[i][w] = max(f[i-1][w-k*A[i-1]] + k*V[i-1], f[i][w])
+                    k += 1
+        
+        return max(f[-1])
+                
