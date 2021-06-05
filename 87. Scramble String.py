@@ -67,35 +67,42 @@ t2 = 'de'	 或 t2` = 'cde'
 
 
 
-
 class Solution(object):
     def isScramble(self, s1, s2):
         """
         :type s1: str
         :type s2: str
         :rtype: bool
-        05/27/2021
+        06/05
         """
         memo = {}
-        return self.dfs(s1, s2, memo)
-        
-    def dfs(self, s, t, memo):
-        if (s, t) in memo:
-            return memo[(s, t)]
-        if len(s) != len(t) or set(s) != set(t):
-            memo[(s, t)] = False
+        if len(s1) != len(s2):
             return False
-
-        if s == t:
-            memo[(s, t)] = True
-            return True
-        for i in range(1, len(s)):
-            if (self.dfs(s[:i], t[:i], memo) and self.dfs(s[i:], t[i:], memo)) or (self.dfs(s[:i], t[-i:], memo) and self.dfs(s[i:], t[:-i], memo)):
-                memo[(s,t)] = True
-                return True
-        memo[(s, t)] = False
-        return False
         
+        return self.dfs(s1,s2, memo)
+        
+        
+        
+    def dfs(self, s1, s2, memo):
+        if (s1, s2) in memo:
+            return memo[(s1, s2)]
+        if len(s1) != len(s2) or set(s1) != set(s2):
+            memo[(s1, s2)] = False
+            return False
+        if s1 == s2:
+            memo[(s1, s2)] = True
+            return True
+        for i in range(1, len(s1)):
+            #第一段没什么好说的, 主要是第二段
+            #s1[:i], s2[-i:] 表示s2里取出i个(-1 就取出一个),
+            # s1[i:], s2[:-i] 表示s1 取出i开始剩余的部分, 上一部分去取出了从-i开始的, 这部分就取出从0 到-i 的部分
+            if (self.dfs(s1[:i], s2[:i], memo) and self.dfs(s1[i:], s2[i:], memo)) or (self.dfs(s1[:i], s2[-i:], memo) and self.dfs(s1[i:], s2[:-i], memo)):
+                memo[(s1, s2)] = True
+                return True
+        
+        memo[(s1, s2)] = False
+        return False
+            
 
 
 class Solution(object):
@@ -175,28 +182,29 @@ class Solution(object):
                 (f[i][j+k-w][w] and f[i+w][j][k-w])
         
         """
-        if len(S) != len(T):
+        if len(s1) != len(s2):
             return False
-        
-        n = len(S)
-        
+        n = len(s1)
         f = [[[False] * (n+1) for _ in range(n)] for _ in range(n)]
         
         for i in range(n):
             for j in range(n):
-                if S[i] == T[j]:
-                    f[i][j][1] = True
-                
-        for k in range(2, n + 1):
-            for i in range(n - k + 1):
-                for j in range(n - k + 1):
-                    for w in range(1, k+1):
+                if s1[i] == s2[j]:
+                    f[i][j][1] =True
+        
+        for k in range(2, n+1): #为什么是n+1, 因为k 的长度需要取到n
+            # 为什么不是i+k < n 而是i+k-1 < n, 因为求的是终止点的坐标小于n
+            #i+k-1 < n ==> i < n-k +1
+            for i in range(n-k+1):
+                for j in range(n-k+1):
+                    for w in range(1,k):  # 这里为什么是1, 而不是2, 也不是0
+                        #k = 0 会越界, 比如j=3, k=2, 这个时候j+k-w 就是5, 但是f[i][5] 越界了
+                        #k = 1 已经算过了, 为什么还需要算一次?? 因为这里的1 是为了算f[i][j][k], k还没算
                         if f[i][j][w] and f[i+w][j+w][k-w]:
                             f[i][j][k] = True
-                            break
                         if f[i][j+k-w][w] and f[i+w][j][k-w]:
                             f[i][j][k] = True
-                            break
+        
         return f[0][0][n]
         
         
