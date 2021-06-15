@@ -12,3 +12,5 @@ lint 125, 背包2
 
 所有DP  做完要总结一下路径打印
 
+1143. Longest Common Subsequence
+
