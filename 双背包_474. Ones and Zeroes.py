@@ -1,4 +1,34 @@
-
+class Solution(object):
+    def findMaxForm(self, strs, m, n):
+        """
+        :type strs: List[str]
+        :type m: int
+        :type n: int
+        :rtype: int
+        这是背包, 二维背包
+        06/25
+        
+        f[i][j][k] 表示前i项选出j个0, k个1,最大的subset是几
+        选第i 项进入背包, 那么最大就是f[i][j][k] = f[i][j-当前项0的个数][k-当前项1的个数] + 1
+        不选第i项进入背包, 那么最大就是f[i][j][k] = f[i-1][j][k] 
+        """
+        
+        size = len(strs)
+        f = [[[0] * (n + 1) for _ in range(m + 1)] for _ in range(size + 1)] #这里要注意最里面是[0] * (n + 1) !!!!连续两次犯错了
+        #f[0][0][0] = 1
+        for i in range(1, size + 1):
+            d = {1: 0, 0: 0}
+            for letter in strs[i - 1]:
+                d[int(letter)] += 1
+            
+            for j in range(m + 1): #这里必须要考虑到j 与k 为0 的情况
+                for k in range(n + 1):
+                    if j >= d[0] and k >= d[1]:
+                        f[i][j][k] = f[i-1][j - d[0]][k - d[1]] + 1 #这里得是i-1, 因为是前i-1项, 和最后第i项
+                    if i > 0:
+                        f[i][j][k] = max(f[i][j][k], f[i-1][j][k])
+        
+        return f[-1][-1][-1]
 
 class Solution(object):
     def findMaxForm(self, strs, m, n):
