@@ -1,7 +1,19 @@
 总结, 这样需要返回新的一条linkedlist 或者tree 的时候, 
-1. 先计算好值(node.val)
-2. 创建新的node, 让curr 移动到新的node上, 
-3. 将第一步的val赋值新的node
+
+正序
+1. 创建header 和 curr node
+2. 先计算好值(node.val)
+3. 基于第二步的val, 创建新的node
+4. 让curr 移动到新的node上
+返回header.next
+
+倒序
+1. node = None  #创建最后一个 node
+2. head = listNode(val) #循环创建起始node
+3. head.next = node #起始node 指向最后一个node
+4. node = head #最后一个node = 起始node
+最后返回head
+
 
 这个顺序保证了最后不会多出一个空node
 
