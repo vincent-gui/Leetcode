@@ -1,6 +1,44 @@
 总结:
 最开始的思路是一个sliding window, 但是考虑到每次dict 里存的是index, 每次需要再检索 dict
 
+
+07/20 
+在sliding window里, start 不能回撤!!!
+例如tabbcderft, 这个题在遇到两个b 的时候, start 已经指向第二个b, 但是遇到最后一个t的时候, 如果不加限制, 因为d[t] 为0, 所以start 会退回到1的位置,这是错误的!!!
+
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        07/20
+        """
+        
+        d = {}
+        
+        ans = start = 0
+        
+        for i, letter in enumerate(s):
+            if letter in d:
+                prev_idx = d[letter]
+                start = max(prev_idx + 1, start)
+            d[letter] = i
+            ans = max(i - start + 1, ans)
+        
+        return ans
+                
+
+
+
+
+
+
+
+
+
+
+07/13
 解法:
 if 遇到新字符, 都存入dict里, 并且更新mx
 
