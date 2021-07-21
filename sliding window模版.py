@@ -3,6 +3,9 @@
 2. i - start + 1 > len(target)
 
 
+#如果是要求连续的substr, 就需要把所有遇到的都加进check里
+
+
 #valid 和与match logic 的关系
 #如果出现valid, 也就意味着问题是求最短substring 一类的, 那么在做match 的时候需要去match len(seen)
 #没有valid 的时候要match len(target)
