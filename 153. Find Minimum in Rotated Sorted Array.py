@@ -5,6 +5,8 @@ if mid >end 大, 那么说明最小值在mid 右侧,
 else: # mid 比end 小, 那么说明最小值在mid 左侧
 	end = mid 
 
+
+# 如果有相等怎么办??
 class Solution(object):
     def findMin(self, nums):
         """
