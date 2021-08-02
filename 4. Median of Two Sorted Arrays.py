@@ -23,7 +23,7 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        if len(nums1) < len(nums2):
+        if len(nums1) < len(nums2): # 为什么这里需要更改数组顺序的原因是: 因为cutA 计算l1  的时候(因为除以2, 会导致向前一位, 如果用长数组作为基准分割, 可能会导致因为第一个数组cut 地方在0, 从而数组2 cut 的地方超过整个数组2 的长度)
             return self.help(nums1, nums2)
         else:
             return self.help(nums2, nums1)
@@ -41,9 +41,9 @@ class Solution(object):
             l2 = B[cutB - 1] if cutB != 0 else -sys.maxint
             r2 = B[cutB] if cutB != len(B) else sys.maxint
             
-            if l1 > r2: #这里为什么不可以是>=  ?????
+            if l1 > r2: #这里为什么不可以是>=  因为等于的时候并不能判断是否需要继续循环, 只有在大于的时候才说明需要继续循环
                 end = cutA - 1
-            elif l2 > r1: #这里为什么不可以是>=  ??????
+            elif l2 > r1: #这里为什么不可以是>=  因为等于的时候并不能判断是否需要继续循环
                 start = cutA + 1
             else:
                 if length % 2 == 0:
