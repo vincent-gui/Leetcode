@@ -20,6 +20,8 @@ class Solution(object):
             return 0
         
         nums.sort(key = lambda k:(k[0], -k[1]))
+		
+		切记直接用height , 而不是整个envelopes
         heights = [h[1] for h in nums] #重点是这一行, 为什么排序后直接用高度呢,  是因为排序后会x 值已经从小到大, y 值在相同x 的情况下从大倒小, 例如[200, 300, 500, 400, 600] 这个时候只需要bisect_left 遍历y就可以了
         
         f = []
