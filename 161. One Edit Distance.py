@@ -1,5 +1,5 @@
-
 解法1:  insert和delete 是同一个效果
+
 
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
