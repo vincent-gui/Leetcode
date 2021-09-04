@@ -5,6 +5,7 @@
 	
 	扫描下落, 用two point, slow 和fast 都从下向上, >0 的交给slow, slow + 1, 最后如果slow > 0, 剩余部分设置成0
 
+解法1
 class Solution:
     def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
         n, m = len(board), len(board[0])
@@ -42,3 +43,38 @@ class Solution:
                     board[idx][j] = 0
                     idx -= 1
         return board
+		
+		
+解法2 #精华在最后一行
+class Solution:
+    def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
+        m, n = len(board), len(board[0])
+        crushed = False
+		# horizontal crushed
+        for i in range(m):
+            for j in range(n - 2):
+                if board[i][j] == 0: continue
+                v = abs(board[i][j])
+                if v == abs(board[i][j + 1]) == abs(board[i][j + 2]):
+                    board[i][j] = board[i][j + 1] = board[i][j + 2] = -v
+                    crushed = True
+        # vertical crushed
+        for i in range(m - 2):
+            for j in range(n):
+                if board[i][j] == 0: continue
+                v = abs(board[i][j])
+                if v == abs(board[i + 1][j]) == abs(board[i + 2][j]):
+                    board[i][j] = board[i + 1][j] = board[i + 2][j] = -v
+                    crushed = True
+        # gravity
+        if crushed:
+            for j in range(n):
+                row_index = m - 1
+                for i in range(m - 1, -1, -1):
+                    if board[i][j] > 0:
+                        board[row_index][j] = board[i][j]
+                        row_index -= 1
+                while row_index >= 0:
+                    board[row_index][j] = 0
+                    row_index -= 1
+        return self.candyCrush(board) if crushed else board #如果crush 过, 继续调用自己, 否则返回board
