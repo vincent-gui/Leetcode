@@ -8,6 +8,7 @@ class Solution(object):
         # 保存第二个node, 将第三个节点做递归, 返回的结果被第一个节点指向 , 第二个节点指向第一个节点
         if not head or not head.next:
             return head
+        #head 是第一个节点, head.next 是第二个节点
         curr = head.next
         head.next = self.swapPairs(head.next.next)
         curr.next = head
