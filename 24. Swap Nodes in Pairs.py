@@ -1,4 +1,4 @@
-解法2
+解法2 这个方法只需要知道两个node就可以了, 不像方法一, 需要知道3个node
 class Solution(object):
     def swapPairs(self, head):
         """
