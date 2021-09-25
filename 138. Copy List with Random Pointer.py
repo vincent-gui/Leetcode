@@ -34,7 +34,7 @@ class Solution(object):
 		
 		
 
-第二中级解法, 不需要额外空间
+第二种解法, 不需要额外空间
 思路
 1. 每个点建立新的node, 新node 指向下一个node, 让原来的node 指向新node
 2. 复制random 指向
