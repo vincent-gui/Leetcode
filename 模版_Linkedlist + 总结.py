@@ -17,3 +17,11 @@ while loop:
 	node = header
 return header
 	
+	
+
+10/04/2021
+总结:
+
+1. 递归的写法一般track 的node 比iter 的写法少
+2. 单向linkedlist 一般考察的就是移除倒数第几个node, 或者从中间拆开
+3. 双向linkedlist 更多考的是设计题, 类似于LFU 之类的
