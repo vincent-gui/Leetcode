@@ -42,4 +42,23 @@ class Solution(object):
         self.preOrder(node.right, ans)
 
 
+解法3
 
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        ans, stack = [], []
+        curr = root
+        
+        while curr or stack:
+            while curr:
+                ans.append(curr.val)
+                stack.append(curr) #必须先放进stack 里, 再让他变成左子node
+                curr = curr.left 
+            curr = stack.pop()
+            curr = curr.right
+        
+        return ans
