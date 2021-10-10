@@ -13,8 +13,9 @@ a.left = b
 a.right = c
 c.right = d
 
-总结: 先将所有左子树放入stack, 用两个变量, curr 和stack track, 当curr 是None 的时候, 从stack pop, 这样就保证了最左边一定被最先pop 出来, 并且加进ans
-又因为 left node 同时也为middle node, 所以中在左之后, 最后一步就是让node = node.right
+总结: 
+1. 先将所有左子树放入stack, 用两个变量, curr 和stack track, 当curr 是None 的时候, 从stack pop, 这样就保证了最左边一定被最先pop 出来, 并且加进ans
+2. 又因为 left node 同时也为middle node, 所以中在左之后, 最后一步就是让node = node.right
 class Solution(object):
     def inorderTraversal(self, root):
         """
