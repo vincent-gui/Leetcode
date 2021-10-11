@@ -69,7 +69,7 @@ class Solution(object):
         return left and right'
 		
 		
-解法4 inorder iter 方法
+解法4 inorder iter 方法 判断上一个数字是否大于等于node.val
 class Solution(object):
     def isValidBST(self, root):
         """
