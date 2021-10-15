@@ -1,7 +1,6 @@
 解法: 
 
-前序遍历的关键就是前序遍历第一个一定为root 节点, 用这个root 节点在中序遍历里找index, index左边为左子树所有的点, 右边为右子树所有的点
-现在返回preorder, 第二个node, 就是inorder 左边的子树的root 节点, 递归求解
+和前序类似, 不过post order 是倒过来的, 最后一个就是root 节点, 所以递归的时候也是先右后左
 
 class Solution(object):
     def buildTree(self, inorder, postorder):
