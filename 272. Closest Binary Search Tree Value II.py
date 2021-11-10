@@ -43,7 +43,7 @@ class Solution:
 		
 		
 解法2: 骚操作
-时间O(lgH) + O(k), 扫描
+时间O(lgH) + O(k), 扫描一遍是lgH, 每次找下一个用O(1), K次
 空间O(h), 包括get stack 从上到下
 
 1.先遍历数组, 同时建立两个stack prev & nxt , 如果node < target, 那么prev.append(node), node = node.right 否则nxt.append(node), node = node.left
