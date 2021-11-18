@@ -1,4 +1,4 @@
-解法1: bottom up 解法, 先定义一个depth 值, 然后左子树的返回值,, 右子树的返回值, 两次update depth
+#解法1: bottom up 解法, 先定义一个depth 值, 然后左子树的返回值,, 右子树的返回值, 两次update depth
 
 class Solution:
     def longestConsecutive(self, root: Optional[TreeNode]) -> int:
@@ -30,7 +30,8 @@ class Solution:
 		
 		
 
-
+#top down 解法
+从上到下, 如果满足-1 的条件, 那么depth 增加1 , 否侧直接设定depth = 1
 class Solution:
     def longestConsecutive(self, root: Optional[TreeNode]) -> int:
         if not root:
