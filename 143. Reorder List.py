@@ -1,3 +1,15 @@
+12/21/2021
+反转链表可以用
+prev, curr = None, slow
+while curr:
+	curr.next, prev, curr = prev, curr, curr.next 
+	
+合并链表可以用
+while first and second:
+	first.next, first = second, first.next
+	second.next, second = first, second.next
+
+
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):
