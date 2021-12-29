@@ -8,9 +8,9 @@ class Solution:
         next_level = root.left
         
         while next_level:
-            curr.left.next = curr.right
+            curr.left.next = curr.right #这一步就直接把当前node 的做连接到右上了
             if curr.next:
-                curr.right.next = curr.next.left
+                curr.right.next = curr.next.left #这一步是为了把不同子树最右的连接到最左
                 curr = curr.next
             else:
                 curr = next_level
