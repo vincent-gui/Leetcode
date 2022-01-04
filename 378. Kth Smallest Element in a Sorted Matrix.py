@@ -1,4 +1,4 @@
-解法: 二分答案, 用matrix 的左上角和右下角的值作为star 和end, 然后求出mid , 计算小于等于mid 的数是否超过了K 个
+                解法: 二分答案, 用matrix 的左上角和右下角的值作为star 和end, 然后求出mid , 计算小于等于mid 的数是否超过了K 个
 
 当大于等于k 时, 让end = mid , 这一步必须这样, 非常重要, 这样可以找到第一个大于等于k 的mid , 并且这个mid 一定在matrix , 别问原因, 不在停不下来
 例: [[1,2],[2, 100]]
@@ -18,7 +18,7 @@ class Solution(object):
             mid = (start + end) / 2
 
             if self.count_less_or_equal(matrix, mid) < k:
-                start = mid
+                start = mid #这一步 人们会问为什么一定保证start 在matrix 里, 因为 start + 1 < end 一定会把start 或者end 压缩到有一个出现在matrix里
             else:
                 end = mid
         
