@@ -17,6 +17,6 @@ class UnionFind:
 			node = self.father[node]
 		
 		for n in path:
-		self.father[n] = node 
+			self.father[n] = node 
 		
 		return node 
