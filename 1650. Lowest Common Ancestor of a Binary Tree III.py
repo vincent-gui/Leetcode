@@ -1,3 +1,9 @@
+题目: 
+	给了树上的两个点, 找他们相同的LCA, 但是并没有给root, 每个node 有一个parent
+	
+前提条件:
+	p, q 必须在tree 上, 时间复杂度O(H), 空间复杂度O(1)
+
 这个题 其实就是寻找两个linkedin list 第一个相同的node
 
 p1 -> p2 -> p3 -> c1 -> c2 -> c3
