@@ -2,6 +2,8 @@
 
 思路: 一开始一点思路也没有, 后来看答案, 意思就是其实可以用一个bool 的数组去track 每一个字母, 如果True 就说明要加粗 
 
+https://leetcode.com/problems/add-bold-tag-in-string/discuss/1035897/Python-both-version-(Trie-%2B-Merged-Intervals)-and-(Trie-%2B-mask)
+
 主要考查点还是怎么去得到哪些字母需要加粗, 最容易想到的就是两层循环, 这样每次得到一个新的时候, 就可以去loop word, 如果word startswith 新的substring, 那么 mark[i: i+len(word)] = [True] * len(word)
 
  但其实这里可以用trie 做优化, 如果words 词组很大
