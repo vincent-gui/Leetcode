@@ -2,6 +2,8 @@
 
 解法, 受到题498 的启发, 不需要判断上下左右边界, 用direct 和边界去驱赶direct 的方向, 看code
 
+04/30/2022 注意添加seen, 也可以改变原始matrix 去降低空间复杂
+
 
 class Solution(object):
     def spiralOrder(self, matrix):
