@@ -42,5 +42,5 @@ class Solution:
         elif k >= left:#注意这里需要等于, 为了让pivot 的右半部分完全有序
             return self.partition(nums, left, end, k)
         else:
-            return nums[k]
+            return nums[k] #注意这里其实就是 left = 4, right= 4 然后一交换后变成 5, 3, 需要return 4
                 

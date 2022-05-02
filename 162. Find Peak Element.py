@@ -1,4 +1,8 @@
 总结: 是一道mid 和 mid + 1, mid - 1 比较的题目
+
+
+重点 就是 其实并不想要知道有几个, 一定会挤在中间
+
 class Solution(object):
     def findPeakElement(self, nums):
         """
