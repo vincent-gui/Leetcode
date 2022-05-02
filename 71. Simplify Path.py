@@ -6,7 +6,9 @@
 	5. 文件需要以一个单斜杠开始, 不能以'/' 结尾
 	
 思路: 
-	先用 '/' split 整个, 然后判定, 如果.. 并且stack 有, 则pop, 否则(else) 如果不是., 也不是空就入栈
+	先用 '/' split 整个, 然后判定, 
+		1.如果.. 并且stack 有, 则pop, 
+		2. 否则(else) 如果不是., 也不是空就入栈
 class Solution(object):
     def simplifyPath(self, path):
         """
