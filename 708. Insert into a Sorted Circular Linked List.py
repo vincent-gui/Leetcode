@@ -28,17 +28,17 @@ class Solution:
         node = Node(insertVal)  
         
         if not head:
-            node.next = node
+            node.next = node #注意如果只有一个点, 那么必须指向自己
             return node
 
         prev, curr = head, head.next
         
-        while prev.next != head: #这个退出条件简直就是精华
+        while prev.next != head: #这个退出条件简直就是精华, 为什么??? 相等回到了原点
             # Case1: 1 <- Node(2) <- 3
             if prev.val <= node.val <= curr.val:
                 break
             
-            # Case2: 3 -> 1, 3 -> Node(4) -> 1, 3 -> Node(0) -> 1
+            # Case2: 3 -> 1, (3 -> Node(4) -> 1 or 3 -> Node(0) -> 1) 大于大的, 或者小于小的
             if prev.val > curr.val and (node.val > prev.val or node.val < curr.val):
                 break
             
