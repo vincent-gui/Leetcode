@@ -34,7 +34,7 @@ class Solution(object):
                 i, j = di, dj
             else: # need to switch to next line
                 if k > 0:
-                    if j + 1 < m:  #未到右边界, 那么右移, 
+                    if j + 1 < m:  #未到右边界, 那么右移, !!!需要验证的是右边界, 而不是 i 是否小于0, 否则在右上角会越界
                         j += 1
                     else:
                         i += 1 #否则下移
