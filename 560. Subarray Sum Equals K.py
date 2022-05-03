@@ -3,12 +3,16 @@
 2.计算ans
 3. 再添加cumsum 进现在的d
 
+[3, 4, 7, -1, 1] k = 7, 就会出现很多次7
+[3,4]
+[7]
+[3, 4, 7, -1, 1]
 
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         ans = 0
-        prefix = {0: 1}
+        prefix = {0: 1} #是省略了prefix[0] 那一项
         cumSum = 0
         for num in nums:
             cumSum += num
