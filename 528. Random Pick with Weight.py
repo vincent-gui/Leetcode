@@ -7,34 +7,27 @@
 最后判定条件就是start <= target, return start, 否则就是end
 
 
-class Solution(object):
+class Solution:
 
-    def __init__(self, w):
-        """
-        :type w: List[int]
-        """
+    def __init__(self, w: List[int]):
         self.prefix = [w[0]]
         for i in range(1, len(w)):
             self.prefix.append(self.prefix[-1] + w[i])
         self.total = self.prefix[-1]
-            
+        
 
-    def pickIndex(self):
-        """
-        :rtype: int
-        """
+    def pickIndex(self) -> int:
         target = self.total * random.random()
         start, end = 0, len(self.prefix) - 1
         
         while start + 1 < end:
-            mid = (start + end) / 2
-            if self.prefix[mid] < target:
+            mid = (start + end) // 2
+            if self.prefix[mid] <= target: #因为是prefix sum, 没有重复数字
                 start = mid
             elif self.prefix[mid] > target:
                 end = mid
-            else:
-                return mid
-        
-        if self.prefix[start] >= target:
+                
+        if self.prefix[start] >= target: #需要检测是因为[1,3,4,2] -> [1, 4, 8, 10], 有可能会出现小于1的target
             return start
         return end
+                
