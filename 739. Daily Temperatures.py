@@ -1,7 +1,7 @@
 
 题目,. 给一串温度, 求当前天几天以后的温度比当前天的温度高
 
-解法: 单调栈, 栈空胡总和栈的最后一个小于等于当前温度, 入栈, 如果大于-1 的温度,则循环直到小于等于 当前温度为止, 更新循环的idx
+解法: 单调栈, 栈空或者和栈的最后一个小于等于当前温度, 入栈, 如果大于-1 的温度,则循环直到小于等于 当前温度为止, 更新循环的idx
 
 
 
@@ -36,6 +36,9 @@ class Solution:
 
 Time O(n)
 space O(N)
+
+#思路: 单调递减栈, 从左到右, 如果当前小于(等于)栈最后一个元素, 入栈, 如果大于, 就回溯到把所有比当前小的都pop 出来后,了再把这个当前入栈
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         stack = []
@@ -45,7 +48,7 @@ class Solution:
             if not stack or stack[-1][0] >= temp:
                 stack.append((temp, i))
             else:
-                while stack and stack[-1][0] < temp:
+                while stack and stack[-1][0] < temp: #栈里最后一个元素小于当前
                     prev_temp, idx = stack.pop()
                     ans[idx] = i - idx
                 stack.append((temp, i))

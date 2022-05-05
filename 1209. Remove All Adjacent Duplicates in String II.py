@@ -16,10 +16,10 @@ class Solution(object):
         stack = []
         for letter in s:
             if not stack or stack[-1][0] != letter:
-                stack.append([letter, 1])
+                stack.append([letter, 1]) # 这里是精华, 第一次遇到保存[leetter, count]
             else:
                 stack[-1][1] += 1
-                if stack[-1][1] == k:
+                if stack[-1][1] == k: #如果等于k 了, 就pop 
                     stack.pop()
         
         return ''.join([item[0] * item[1] for item in stack])
