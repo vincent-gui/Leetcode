@@ -17,12 +17,12 @@ class Solution:
         """
         i = len(nums) - 1
         
-        while i and nums[i - 1] >= nums[i]: #这里需要的是非递减数列
+        while i and nums[i - 1] >= nums[i]: #这里需要的是非递减数列 , 否则[5, 1, 1] 就不能到[1,1,5]
             i -= 1
         
         self.reverse(nums, i, len(nums) - 1)
         
-        for idx in range(i, len(nums)):
+        for idx in range(i, len(nums)): #其实这里需要判定i 是不是等于0, 等于0, 也就是整个原数组是单调的, 直接翻转完就可以了
             if nums[i-1] < nums[idx]: #这里是i-1, 而不是i
                 nums[idx], nums[i-1] = nums[i-1], nums[idx]
                 break
