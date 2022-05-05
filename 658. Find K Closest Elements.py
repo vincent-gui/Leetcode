@@ -14,6 +14,8 @@ class Solution:
         while left < right:
             mid = (left + right) // 2  #mid 就是在寻找left 到底可以在哪
             if x > (arr[mid] + arr[mid + k])/2:  #当left 固定后, window 的左和右的和的平均值相比较于x, 如果x > 这个平均值,那么意味着 需要把left 向右移动1 位, 增大这个平均值
+			#这里为什么没有等号的原因是要使得所有的结果向左倾斜, 也就是偏小
+			#[1,2,3,4,5], target 是3, 找4个数, 结果希望是[1,2,3,4], 而不是[2,3,4,5]
                 left = mid + 1
             else:
                 right = mid
