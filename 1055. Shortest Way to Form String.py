@@ -40,3 +40,44 @@ class Solution:
                 j = 0
                 ans += 1
         return ans
+		
+解法2: 预处理 + 二分
+思路就是对于每一个字母做一个inverted_idx, 这样每个字母出现的位置都被保留成了一个排好序的数组
+
+然后遍历target ,
+
+	if 找到当前ch 出现在dict里, 
+		把当前字母的有序idx数组拿出来, 用现在的位置放进这个数组做binsect_left. 
+		if 返回的位置小于有序数组的长度
+			更新当前位置=有序数组[返回位置] + 1
+		else:
+			说明已经遍历完成, 找不到了, 必须从数组头开始重新查找
+			ans += 1
+			更新当前位置=有序数组[0] + 1
+		
+	else:
+		return -1
+		
+		
+class Solution:
+    def shortestWay(self, source: str, target: str) -> int:
+        inverted_idx = defaultdict(list)
+        for i, ch in enumerate(source):
+            inverted_idx[ch].append(i)
+        
+        ans = 1
+        idx = -1
+        
+        for ch in target:
+            if ch not in inverted_idx:
+                return -1
+            idx_of_ch = inverted_idx[ch]
+            next_idx = bisect_left(idx_of_ch, idx)
+            if next_idx == len(idx_of_ch):
+                ans += 1
+                idx = idx_of_ch[0] + 1
+            else:
+                idx = idx_of_ch[next_idx] + 1
+        
+        return ans
+        
