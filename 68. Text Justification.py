@@ -1,7 +1,7 @@
 题目: 给一串单词, 给一个最大长度, 让把这一串单词按照最大长度分发成不同的行
 并且保证同一行的每次单词尽可能的分散, 如果不能平均分散, 则前面的部分尽可能分散
 
-
+模拟题, 没有算法, 就是考写代码的细节处理
 
 第一种
 
@@ -89,7 +89,8 @@ class Solution:
         answer = []
         line, width = [], 0
         for word in words:
-            if width + len(word) + len(line) <= maxWidth:
+            if width + len(word) + len(line) <= maxWidth: 
+				#这里这个+ len(line) 非常精巧, 意思是如果想要加word 这个词, 就需要len(line) 这么多空格
                 # keep adding words until we can fill out maxWidth
                 # width = sum of length of all words
                 # len(word) = length of current word
