@@ -220,20 +220,16 @@ class NumArray(object):
         return self.sumRange_helper(self.root, left, right)
         
     def sumRange_helper(self, root, start, end):
-        if root.start == start and root.end == end:
-            return root.sum
+        if start <= root.start and root.end <= end:
+            
+            return root.sum 
+            
+        if start > root.end or end < root.start:
+            
+            return 0
+            
+        return self.sumRange_helper(root.left, start, end) + self.sumRange_helper(root.right, start, end)
         
-        mid = (root.start + root.end) / 2
-        left = right = 0
-        if mid >= end:
-            left = self.sumRange_helper(root.left, start, end)
-        elif mid < start:
-            right = self.sumRange_helper(root.right, start, end)
-        else:
-            left = self.sumRange_helper(root.left, start, mid)
-            right = self.sumRange_helper(root.right, mid + 1, end)
-        
-        return left + right
         
 
 obj = NumArray([1, 3, 5])
