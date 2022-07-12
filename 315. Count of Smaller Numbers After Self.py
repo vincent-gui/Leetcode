@@ -128,3 +128,34 @@ class Solution:
         if root.end < start or root.start > end:
             return 0
         return self.query(root.left, start, end) + self.query(root.right, start, end)
+		
+解法3: 
+
+https://grantjenks.com/docs/sortedcontainers/
+这个就是排序了, 倒着往数组里插入, 本质上和binary search 是一个道理, binary search 插入花的时间更多
+
+用sl 维持一个有序数组, 然后每次新的数字来了以后先binary search 找到能添加的位置i,这个idx 就是有多少个比自己小的数, 然后将当前数字添加进去
+from sortedcontainers import SortedList
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        ans = []
+        sl = SortedList([])
+        
+        for num in nums[::-1]:
+            idx = sl.bisect_left(num)
+            ans.append(idx)
+            sl.add(num)
+            
+        return ans[::-1]
+		
+		
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        orderedNum = []
+        ans = []
+        for num in nums[::-1]:
+            idx = bisect_left(orderedNum, num)
+            ans.append(idx)
+            orderedNum.insert(idx, num)
+        
+        return ans[::-1]
