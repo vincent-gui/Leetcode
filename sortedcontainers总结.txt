@@ -1,0 +1,13 @@
+1.Sorted List
+	增加元素是add()
+	
+	update() 括号里需要添加一个可以遍历的object, 一次性全部添加进去
+	clear() 删除全部元素
+	discard(value), 删除这个value(是item, 而不是index)
+	remove(value), value 必须在里面,否则报错
+	irange(value1, value2)
+	islice(index1, index2)
+	count(value) 返回一共有几个等于这个value
+	index(value) 返回这个value 的first index, 报错如果value 不存在
+	pop(index=- 1), 空则报错, 也可以指定index pop
+	
