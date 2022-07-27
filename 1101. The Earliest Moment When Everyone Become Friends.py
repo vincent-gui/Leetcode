@@ -2,6 +2,7 @@
 
 
 Union find , 注意每次成功连接 self.cnt -= 1, 最后等于1 就意味着已经全部连接了
+
 class Solution(object):
     def earliestAcq(self, logs, n):
         """
