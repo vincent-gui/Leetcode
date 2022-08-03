@@ -21,6 +21,8 @@ else:
 	
 返回
 
+注意如果是letter 的时候需要的是 d[key] += num, 而不是直接分配
+
 
 class Solution:
     def countOfAtoms(self, formula: str) -> str:
@@ -70,7 +72,7 @@ class Solution:
                     num = 1
                 else:
                     num = int(formula[i:j])
-                curr[ele] = curr.get(ele, 0) + num
+                curr[ele] = curr.get(ele, 0) + num #注意
                 i = j - 1
                 
                 
