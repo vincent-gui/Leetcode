@@ -11,3 +11,13 @@
 	index(value) 返回这个value 的first index, 报错如果value 不存在
 	pop(index=- 1), 空则报错, 也可以指定index pop
 	
+2. SortedDict
+	update() 
+	pop(key) return是value
+	popitem(idx) return 是一个tuple(key, value)从dict 里删除
+	peekitem(idx) return 是一个tuple(key, value), 不从dict 里删除
+	
+3. SortedDict
+	discard(value), 删除这个value
+	pop(idx) 删除idx 位置的key
+	remove(value) 直接删除value 
