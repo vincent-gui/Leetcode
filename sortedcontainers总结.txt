@@ -17,7 +17,7 @@
 	popitem(idx) return 是一个tuple(key, value)从dict 里删除
 	peekitem(idx) return 是一个tuple(key, value), 不从dict 里删除
 	
-3. SortedDict
+3. Sortedset
 	discard(value), 删除这个value
 	pop(idx) 删除idx 位置的key
 	remove(value) 直接删除value 
