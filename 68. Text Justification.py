@@ -68,12 +68,12 @@ class Solution:
         def justifySingleLine(line, width, max_width):
             num_words = len(line)
             total_spaces = max_width - width
-            if num_words == 1:
+            if num_words == 1: # 如果一行只有一个单词, 全部都靠左
                 # if there is only word in line
                 # just insert total_spaces for the remainder of line
                 return line[0] + ' ' * total_spaces
             else:
-                locations = num_words - 1
+                locations = num_words - 1   #先找到有多少个空位, 然后按照空位建立space 数组, 最后再用余数往里面添加多余的, 很精妙
                 # spaces_inserted[i] is the number of spaces inserted between the words line[i] and line[i+1]
                 spaces_inserted = locations * [total_spaces // locations]
                 # distribute the remaining spaces to the left positions
@@ -89,7 +89,7 @@ class Solution:
         answer = []
         line, width = [], 0
         for word in words:
-            if width + len(word) + len(line) <= maxWidth: 
+            if width + len(word) + len(line) <= maxWidth:  #这个width 是已经保存的所有单词的长度
 				#这里这个+ len(line) 非常精巧, 意思是如果想要加word 这个词, 就需要len(line) 这么多空格
                 # keep adding words until we can fill out maxWidth
                 # width = sum of length of all words
@@ -103,5 +103,5 @@ class Solution:
                 # reset new line and new width
                 line, width = [word], len(word)
         remaining_spaces = maxWidth - width - len(line)
-        answer.append(' '.join(line) + (remaining_spaces + 1) * ' ')
+        answer.append(' '.join(line) + (remaining_spaces + 1) * ' ') #??? 这里+1 的原因是因为上一行多减掉一个空格, 如果最后一行有两个单词, 那么会减掉两个space, 但是其实减掉一个就够了
         return answer
